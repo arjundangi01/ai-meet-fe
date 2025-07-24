@@ -1,4 +1,4 @@
-import MeetingDetailPage from "@/src/module/meet-detail-page";
+import MeetingDetailPage from "@/module/meet-detail-page";
 import React from "react";
 
 const Page = async ({ params }: { params: { id: string } }) => {

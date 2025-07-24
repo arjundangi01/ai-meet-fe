@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { COOKIES, USER_ROLES } from "@/src/lib/types";
+import { COOKIES, USER_ROLES } from "@/lib/types";
 import { APP_ROUTES } from "./lib/constants/app-routes";
 
 interface Permissions {

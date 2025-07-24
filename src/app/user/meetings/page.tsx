@@ -1,22 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import { Input } from "@/src/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
 import {
   Search,
   Filter,
@@ -29,7 +24,7 @@ import {
   Eye,
 } from "lucide-react";
 import Link from "next/link";
-import { mockMeetings } from "@/src/lib/mock-data";
+import { mockMeetings } from "@/lib/mock-data";
 
 export default function MeetingsPage() {
   const [searchTerm, setSearchTerm] = useState("");

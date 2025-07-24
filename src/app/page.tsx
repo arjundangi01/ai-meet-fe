@@ -1,14 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Play,
   FileText,
@@ -24,7 +19,7 @@ import {
   Search,
 } from "lucide-react";
 import Link from "next/link";
-import { APP_ROUTES } from "@/src/lib/constants/app-routes";
+import { APP_ROUTES } from "@/lib/constants/app-routes";
 import Image from "next/image";
 
 const features = [
