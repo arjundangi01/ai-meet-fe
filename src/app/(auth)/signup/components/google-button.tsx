@@ -4,54 +4,67 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { authService } from "@/service/auth";
+import firebase from "firebase/compat/app";
+import { SignInWithSocialMediaService } from "@/service/firebase-service";
+import { IOAuthUser } from "../../_types/auth";
+import { calendarScopes } from "@/lib/constants/common";
+
 const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    try {
-      const result = await signIn("google", {
-        redirect: false,
-        callbackUrl: "/dashboard",
+    const provider = new firebase.auth.GoogleAuthProvider();
+    if (provider) {
+      provider.setCustomParameters({
+        prompt: "select_account",
       });
+      provider.addScope(calendarScopes);
+      signInWithSocialMedia(provider, "google").catch(() => {
+        toast.error("Signed up failed!");
+      });
+    }
+  };
 
-      if (result?.ok) {
-        // Get session to access tokens
-        const session = await getSession();
-        // @ts-ignore
-        if (session?.accessToken) {
-          // Send tokens to backend
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google-callback`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                // @ts-ignore
-                accessToken: session.accessToken,
-                // @ts-ignore
-                refreshToken: session.refreshToken,
-                userEmail: session.user?.email,
-              }),
-            }
-          );
+  const signInWithSocialMedia = async (
+    provider: firebase.auth.AuthProvider,
+    socialPlatform: string
+  ) => {
+    try {
+      const result: {
+        credential: firebase.auth.AuthCredential | null;
+        user: {
+          displayName: string;
+          uid: string;
+          email: string;
+        };
+      } = await SignInWithSocialMediaService(provider);
+      console.log("result", result);
+      const oauthUser: IOAuthUser = {
+        fullName: "",
+        email: "",
+        accessToken: "",
+        oauth: "",
+        firebaseUid: "",
+        idToken: "",
+      };
 
-          if (response.ok) {
-            router.push("/dashboard");
-          } else {
-            const error = await response.json();
-            if (error.code === "CALENDAR_ACCESS_DENIED") {
-              router.push("/auth/error?error=calendar_access_required");
-            }
-          }
-        }
+      if (result.credential && "accessToken" in result.credential) {
+        oauthUser.accessToken = (
+          result.credential as firebase.auth.OAuthCredential
+        ).accessToken as string;
+        oauthUser.idToken = (result.credential as firebase.auth.OAuthCredential)
+          .idToken as string;
       }
+
+      const { displayName, uid, email } = result.user;
+      oauthUser.firebaseUid = uid;
+      oauthUser.email = email;
+      oauthUser.fullName = displayName;
+      oauthUser.oauth = socialPlatform.toUpperCase();
     } catch (error) {
-      console.error("Sign-in error:", error);
-    } finally {
-      setIsLoading(false);
+      console.error("Google authentication error:", error);
+      toast.error("Google sign-in failed. Please try again.");
     }
   };
   return (

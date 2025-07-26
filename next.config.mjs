@@ -20,9 +20,8 @@ const config = {
   // 	locales: ["en"],
   // 	defaultLocale: "en",
   // },
-
   images: {
-    domains: [],
+    domains: ["images.pexels.com"],
     remotePatterns: [
       {
         protocol: "https",

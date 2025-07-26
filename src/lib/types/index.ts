@@ -1,3 +1,5 @@
+import type firebase from "firebase/compat/app";
+
 export enum COOKIES {
   AUTH_TOKEN = "authToken",
   USER_TYPE = "userType",
@@ -12,3 +14,12 @@ export enum USER_ROLES {
   ADMIN = "ADMIN",
   SUPER_ADMIN = "SUPER_ADMIN",
 }
+
+export type firebaseResponse = {
+  credential: firebase.auth.AuthCredential | null;
+  user: {
+    displayName: string;
+    uid: string;
+    email: string;
+  };
+};
