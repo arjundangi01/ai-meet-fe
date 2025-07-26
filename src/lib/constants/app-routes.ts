@@ -9,4 +9,9 @@ export const APP_ROUTES = {
     PROFILE: "/user/profile",
     SETTINGS: "/user/settings",
   },
+  ADMIN: {
+    DASHBOARD: "/admin/dashboard",
+    USERS: "/admin/users",
+    SETTINGS: "/admin/settings",
+  },
 };

@@ -9,10 +9,13 @@ import firebase from "firebase/compat/app";
 import { SignInWithSocialMediaService } from "@/service/firebase-service";
 import { IOAuthUser } from "../../_types/auth";
 import { calendarScopes } from "@/lib/constants/common";
+import { useSocialSignup } from "../../_hooks/useAuth";
+import { redirectUser } from "../../_utils/helpers";
 
 const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { mutate: signupMutation } = useSocialSignup();
   const handleGoogleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
@@ -41,7 +44,7 @@ const GoogleButton = () => {
       } = await SignInWithSocialMediaService(provider);
       console.log("result", result);
       const oauthUser: IOAuthUser = {
-        fullName: "",
+        name: "",
         email: "",
         accessToken: "",
         oauth: "",
@@ -60,8 +63,18 @@ const GoogleButton = () => {
       const { displayName, uid, email } = result.user;
       oauthUser.firebaseUid = uid;
       oauthUser.email = email;
-      oauthUser.fullName = displayName;
+      oauthUser.name = displayName;
       oauthUser.oauth = socialPlatform.toUpperCase();
+      signupMutation(oauthUser, {
+        onSuccess: (data) => {
+          toast.success("Signed up successfully!");
+          router.replace(redirectUser(data.user.role));
+        },
+        onError: (error) => {
+          console.log("error", error);
+          toast.error("Signed up failed!");
+        },
+      });
     } catch (error) {
       console.error("Google authentication error:", error);
       toast.error("Google sign-in failed. Please try again.");

@@ -9,10 +9,8 @@ export enum COOKIES {
 }
 
 export enum USER_ROLES {
-  AUTHOR = "AUTHOR",
-  READER = "READER",
   ADMIN = "ADMIN",
-  SUPER_ADMIN = "SUPER_ADMIN",
+  USER = "USER",
 }
 
 export type firebaseResponse = {
