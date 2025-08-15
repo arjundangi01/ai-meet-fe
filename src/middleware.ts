@@ -8,11 +8,7 @@ interface Permissions {
 }
 
 const permissions: Permissions = {
-  "profile-settings": [
-    USER_ROLES.AUTHOR,
-    USER_ROLES.ADMIN,
-    USER_ROLES.SUPER_ADMIN,
-  ],
+  "profile-settings": [USER_ROLES.ADMIN],
 };
 
 function checkAuthorization(
@@ -83,9 +79,9 @@ export function middleware(request: NextRequest) {
   //   return Redirect();
   // }
 
-  if (path !== APP_ROUTES.HOME) {
-    return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.url));
-  }
+  // if (path !== APP_ROUTES.HOME) {
+  //   return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.url));
+  // }
 
   return NextResponse.next();
 }

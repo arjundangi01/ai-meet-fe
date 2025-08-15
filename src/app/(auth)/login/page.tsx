@@ -25,7 +25,7 @@ const features = [
   {
     icon: <Mic className="h-5 w-5" />,
     title: "AI Transcription",
-    description: "Get accurate transcripts with 99% accuracy",
+    description: "Get accurate transcripts",
   },
   {
     icon: <FileText className="h-5 w-5" />,
@@ -44,7 +44,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "VP of Product at TechCorp",
     content:
-      "MeetingAI has transformed how we handle our weekly standups. The AI summaries are incredibly accurate.",
+      "ReplayAI has transformed how we handle our weekly standups. The AI summaries are incredibly accurate.",
     avatar:
       "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop",
   },
@@ -72,7 +72,7 @@ export default function LoginPage() {
                   <Video className="h-8 w-8 text-white" />
                 </div>
                 <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  MeetingAI
+                  ReplayAI
                 </span>
               </Link>
             </div>
@@ -131,7 +131,7 @@ export default function LoginPage() {
             {/* Features */}
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                Why teams choose MeetingAI
+                Why teams choose ReplayAI
               </h2>
               <div className="space-y-6">
                 {features.map((feature, index) => (

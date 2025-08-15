@@ -7,7 +7,7 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MeetingAI - AI-Powered Meeting Assistant",
+  title: "ReplayAI - AI-Powered Meeting Assistant",
   description:
     "Transform your meetings into actionable insights with AI-powered transcription, summaries, and highlights.",
 };

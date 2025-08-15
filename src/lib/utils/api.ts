@@ -4,6 +4,7 @@ import Cookie from "js-cookie";
 import { clearCookies } from "@/app/(auth)/_utils/helpers";
 import { isClient } from "./is-client";
 import { COOKIES } from "../types";
+import { GraphQLClient } from "graphql-request";
 
 const apiUrl = env.NEXT_PUBLIC_API_URL;
 
@@ -58,4 +59,14 @@ apiClient.interceptors.response.use(
   }
 );
 
-export { apiClient, apiUrl };
+const getGraphQLClient = () => {
+  const token = Cookie.get(COOKIES.AUTH_TOKEN);
+
+  return new GraphQLClient(env.NEXT_PUBLIC_GRAPHQL_URL, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+};
+
+export { apiClient, apiUrl, getGraphQLClient };

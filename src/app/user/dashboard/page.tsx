@@ -32,13 +32,7 @@ export default function DashboardPage() {
       change: "+12%",
       changeType: "positive",
     },
-    {
-      title: "Hours Saved",
-      value: dashboardStats.totalHours.toString(),
-      icon: Clock,
-      change: "+8%",
-      changeType: "positive",
-    },
+
     {
       title: "Summaries Generated",
       value: dashboardStats.summariesGenerated.toString(),
@@ -91,36 +85,14 @@ export default function DashboardPage() {
               <div className="text-2xl font-bold text-gray-900">
                 {stat.value}
               </div>
-              <p className="text-xs text-green-600 flex items-center mt-1">
+              {/* <p className="text-xs text-green-600 flex items-center mt-1">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 {stat.change} from last month
-              </p>
+              </p> */}
             </CardContent>
           </Card>
         ))}
       </div>
-
-      {/* Processing Status */}
-      {processingMeetings > 0 && (
-        <Card className="border-blue-200 bg-blue-50">
-          <CardHeader>
-            <CardTitle className="text-blue-900 flex items-center">
-              <Zap className="h-5 w-5 mr-2" />
-              Processing in Progress
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-blue-800 mb-3">
-              {processingMeetings} meeting{processingMeetings > 1 ? "s" : ""}{" "}
-              currently being processed by AI
-            </p>
-            <Progress value={75} className="h-2" />
-            <p className="text-sm text-blue-600 mt-2">
-              Estimated completion: 5 minutes
-            </p>
-          </CardContent>
-        </Card>
-      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Recent Meetings */}
@@ -166,24 +138,6 @@ export default function DashboardPage() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Badge
-                      variant={
-                        meeting.status === "completed"
-                          ? "default"
-                          : meeting.status === "processing"
-                          ? "secondary"
-                          : "destructive"
-                      }
-                      className={
-                        meeting.status === "completed"
-                          ? "bg-green-100 text-green-800"
-                          : meeting.status === "processing"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-red-100 text-red-800"
-                      }
-                    >
-                      {meeting.status}
-                    </Badge>
                     <Link href={`/meetings/${meeting.id}`}>
                       <Button variant="ghost" size="sm">
                         <MoreHorizontal className="h-4 w-4" />
@@ -204,12 +158,6 @@ export default function DashboardPage() {
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Link href="/upload">
-                <Button className="w-full justify-start" variant="outline">
-                  <Play className="h-4 w-4 mr-2" />
-                  Upload New Meeting
-                </Button>
-              </Link>
               <Link href="/meetings">
                 <Button className="w-full justify-start" variant="outline">
                   <FileText className="h-4 w-4 mr-2" />
@@ -247,19 +195,6 @@ export default function DashboardPage() {
                 <span className="text-sm text-gray-600">Action Items</span>
                 <span className="font-semibold">24</span>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Tips */}
-          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
-            <CardHeader>
-              <CardTitle className="text-blue-900">💡 Pro Tip</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-blue-800">
-                Upload meetings right after they end to get the most accurate
-                transcriptions and summaries!
-              </p>
             </CardContent>
           </Card>
         </div>

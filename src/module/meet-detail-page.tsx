@@ -102,25 +102,6 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
         </div>
 
         <div className="flex items-center space-x-3">
-          <Badge
-            variant={
-              meeting.status === "completed"
-                ? "default"
-                : meeting.status === "processing"
-                ? "secondary"
-                : "destructive"
-            }
-            className={
-              meeting.status === "completed"
-                ? "bg-green-100 text-green-800"
-                : meeting.status === "processing"
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
-            }
-          >
-            {meeting.status}
-          </Badge>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
@@ -273,9 +254,9 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
                                   return (
                                     <div
                                       key={lineIndex}
-                                      className="flex space-x-3"
+                                      className="flex flex-col space-x-3"
                                     >
-                                      <span className="font-semibold text-blue-600 min-w-0">
+                                      <span className="font-semibold text-blue-600 ">
                                         {speaker}:
                                       </span>
                                       <span className="text-gray-700">
@@ -399,10 +380,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
                   <FileText className="h-4 w-4 mr-2" />
                   Create Follow-up
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Schedule Next Meeting
-                </Button>
+
                 <Button variant="outline" className="w-full justify-start">
                   <Share className="h-4 w-4 mr-2" />
                   Share with Team

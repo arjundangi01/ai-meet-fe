@@ -27,7 +27,7 @@ const features = [
     icon: <Mic className="h-8 w-8" />,
     title: "AI Transcription",
     description:
-      "Get accurate transcripts of your meetings with 99% accuracy using advanced AI technology.",
+      "Get accurate transcripts of your meetings using advanced AI technology.",
   },
   {
     icon: <FileText className="h-8 w-8" />,
@@ -54,10 +54,9 @@ const features = [
       "Share meeting insights and collaborate on action items with your team.",
   },
   {
-    icon: <Shield className="h-8 w-8" />,
-    title: "Enterprise Security",
-    description:
-      "Bank-level encryption and compliance with SOC2, GDPR, and HIPAA standards.",
+    icon: <Users className="h-8 w-8" />,
+    title: "Speaker Recognition",
+    description: "Identifies different speakers in meetings and audio files",
   },
 ];
 
@@ -109,7 +108,7 @@ export default function LandingPage() {
                 <Video className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                MeetingAI
+                ReplayAI
               </span>
             </div>
             <div className="flex items-center space-x-4">
@@ -137,13 +136,13 @@ export default function LandingPage() {
                   : "opacity-0 translate-y-10"
               }`}
             >
-              <Badge
+              {/* <Badge
                 variant="secondary"
                 className="mb-6 px-4 py-2 text-sm font-medium"
               >
                 <Star className="h-4 w-4 mr-2" />
                 Trusted by 10,000+ teams worldwide
-              </Badge>
+              </Badge> */}
               <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
                 Let AI attend your{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
@@ -156,7 +155,7 @@ export default function LandingPage() {
                 details again.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <Link href="/dashboard">
+                <Link href={APP_ROUTES.USER.DASHBOARD}>
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-8 py-4 text-lg"
@@ -284,7 +283,7 @@ export default function LandingPage() {
               Loved by teams everywhere
             </h2>
             <p className="text-xl text-gray-600">
-              See what our customers have to say about MeetingAI
+              See what our customers have to say about ReplayAI
             </p>
           </div>
 
@@ -334,7 +333,7 @@ export default function LandingPage() {
             Ready to transform your meetings?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Join thousands of teams already using MeetingAI to make their
+            Join thousands of teams already using ReplayAI to make their
             meetings more productive
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -366,7 +365,7 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
                   <Video className="h-6 w-6 text-white" />
                 </div>
-                <span className="text-2xl font-bold">MeetingAI</span>
+                <span className="text-2xl font-bold">ReplayAI</span>
               </div>
               <p className="text-gray-400">
                 AI-powered meeting assistant for modern teams
@@ -434,7 +433,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 MeetingAI. All rights reserved.</p>
+            <p>&copy; 2024 ReplayAI. All rights reserved.</p>
           </div>
         </div>
       </footer>

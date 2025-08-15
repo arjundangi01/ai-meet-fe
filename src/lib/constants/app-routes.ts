@@ -8,6 +8,7 @@ export const APP_ROUTES = {
     TRANSCRIPTS: "/user/transcripts",
     PROFILE: "/user/profile",
     SETTINGS: "/user/settings",
+    SUPPORT: "/user/support",
   },
   ADMIN: {
     DASHBOARD: "/admin/dashboard",

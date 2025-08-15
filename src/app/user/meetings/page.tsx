@@ -66,11 +66,6 @@ export default function MeetingsPage() {
             {filteredMeetings.length !== 1 ? "s" : ""} found
           </p>
         </div>
-        <Link href="/upload">
-          <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
-            Upload Meeting
-          </Button>
-        </Link>
       </div>
 
       {/* Filters */}
@@ -133,24 +128,6 @@ export default function MeetingsPage() {
                     </CardTitle>
                   </div>
                 </div>
-                <Badge
-                  variant={
-                    meeting.status === "completed"
-                      ? "default"
-                      : meeting.status === "processing"
-                      ? "secondary"
-                      : "destructive"
-                  }
-                  className={
-                    meeting.status === "completed"
-                      ? "bg-green-100 text-green-800"
-                      : meeting.status === "processing"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : "bg-red-100 text-red-800"
-                  }
-                >
-                  {meeting.status}
-                </Badge>
               </div>
             </CardHeader>
 
@@ -202,7 +179,7 @@ export default function MeetingsPage() {
                   {meeting.recordingSize}
                 </div>
                 <div className="flex space-x-2">
-                  <Link href={`/meetings/${meeting.id}`}>
+                  <Link href={`/user/meetings/${meeting.id}`}>
                     <Button size="sm" variant="outline">
                       <Eye className="h-3 w-3 mr-1" />
                       View

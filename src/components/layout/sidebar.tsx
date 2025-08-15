@@ -13,16 +13,17 @@ import {
   Clock,
   FileText,
 } from "lucide-react";
+import { APP_ROUTES } from "@/lib/constants/app-routes";
 
 const sidebarItems = [
   {
     title: "Dashboard",
-    href: "/dashboard",
+    href: APP_ROUTES.USER.DASHBOARD,
     icon: LayoutDashboard,
   },
   {
     title: "All Meetings",
-    href: "/meetings",
+    href: APP_ROUTES.USER.MEETINGS,
     icon: Video,
   },
   {
@@ -30,29 +31,20 @@ const sidebarItems = [
     href: "/meetings?filter=recent",
     icon: Clock,
   },
-  {
-    title: "Transcripts",
-    href: "/meetings?filter=transcripts",
-    icon: FileText,
-  },
-  {
-    title: "Upload",
-    href: "/upload",
-    icon: Upload,
-  },
+
   {
     title: "Profile",
-    href: "/profile",
+    href: APP_ROUTES.USER.PROFILE,
     icon: User,
   },
   {
     title: "Settings",
-    href: "/settings",
+    href: APP_ROUTES.USER.SETTINGS,
     icon: Settings,
   },
   {
     title: "Support",
-    href: "/support",
+    href: APP_ROUTES.USER.SUPPORT,
     icon: HelpCircle,
   },
 ];
