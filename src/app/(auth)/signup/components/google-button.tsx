@@ -17,7 +17,7 @@ import { setAuthCookies } from "@/lib/utils/cookies";
 const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { mutate: signupMutation } = useSocialSignup();
+  const { mutate: signupMutation, isPending } = useSocialSignup();
   const handleGoogleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
@@ -86,7 +86,7 @@ const GoogleButton = () => {
   return (
     <Button
       onClick={handleGoogleSignIn}
-      disabled={isLoading}
+      disabled={isLoading || isPending}
       className="w-full h-14 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200"
       variant="outline"
     >
