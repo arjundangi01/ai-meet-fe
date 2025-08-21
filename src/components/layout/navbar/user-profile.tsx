@@ -21,7 +21,7 @@ const UserProfile = () => {
 
   const handleLogout = () => {
     removeAuthCookies();
-    router.push(APP_ROUTES.LOGIN);
+    router.replace(APP_ROUTES.HOME);
   };
   const { user } = useAuthStore((state) => state);
 
