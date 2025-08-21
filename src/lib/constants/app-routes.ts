@@ -3,6 +3,7 @@ export const APP_ROUTES = {
   LOGIN: "/login",
   SIGNUP: "/signup",
   USER: {
+    ROOT: "/user",
     DASHBOARD: "/user/dashboard",
     MEETINGS: "/user/meetings",
     TRANSCRIPTS: "/user/transcripts",
@@ -11,6 +12,7 @@ export const APP_ROUTES = {
     SUPPORT: "/user/support",
   },
   ADMIN: {
+    ROOT: "/admin",
     DASHBOARD: "/admin/dashboard",
     USERS: "/admin/users",
     SETTINGS: "/admin/settings",

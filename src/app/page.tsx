@@ -337,7 +337,7 @@ export default function LandingPage() {
             meetings more productive
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard">
+            <Link href={APP_ROUTES.SIGNUP}>
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-8 py-4 text-lg"

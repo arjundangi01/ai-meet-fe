@@ -21,67 +21,50 @@ function checkAuthorization(
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const publicPaths = [
-    // AppRouts.auth.signIn,
-    // AppRouts.auth.signUp,
-    // AppRouts.auth.forgotPassword,
-    APP_ROUTES.HOME,
-  ];
+  const publicPaths = [APP_ROUTES.HOME, APP_ROUTES.LOGIN, APP_ROUTES.SIGNUP];
+
   const isPublicPath = publicPaths.includes(path as typeof APP_ROUTES.HOME);
   const token = request.cookies.get(COOKIES.AUTH_TOKEN)?.value || "";
   const userType = request.cookies.get(COOKIES.USER_TYPE)?.value || "";
 
-  // const Redirect = () => {
-  //   if (token) {
-  //     switch (userType) {
-  //       case USER_ROLES.SUPER_ADMIN:
-  //         return NextResponse.redirect(
-  //           new URL(AppRouts.superAdmin.dashboard, request.url)
-  //         );
-  //       case USER_ROLES.ADMIN:
-  //         return NextResponse.redirect(
-  //           new URL(AppRouts.admin.dashboard, request.url)
-  //         );
-  //       case USER_ROLES.READER:
-  //         return NextResponse.redirect(new URL(AppRouts.home, request.url));
-  //       case USER_ROLES.AUTHOR:
-  //         return NextResponse.redirect(
-  //           new URL(AppRouts.author.dashboard, request.url)
-  //         );
-  //     }
-  //   }
-  //   return NextResponse.redirect(new URL(AppRouts.home, request.url));
-  // };
+  const Redirect = () => {
+    if (token) {
+      switch (userType) {
+        case USER_ROLES.USER:
+          return NextResponse.redirect(
+            new URL(APP_ROUTES.USER.DASHBOARD, request.url)
+          );
+      }
+    }
+    return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.url));
+  };
 
-  // if (token && isPublicPath) {
-  //   return Redirect();
-  // }
+  if (token && isPublicPath) {
+    return Redirect();
+  }
 
-  // if (!token && !isPublicPath) {
-  //   return Redirect();
-  // }
+  if (!token && !isPublicPath) {
+    return Redirect();
+  }
 
-  // if (
-  //   (token &&
-  //     path.startsWith("/super-admin") &&
-  //     userType !== USER_ROLES.SUPER_ADMIN) ||
-  //   (token && path.startsWith("/admin") && userType !== USER_ROLES.ADMIN) ||
-  //   (token && path.startsWith("/author") && userType !== USER_ROLES.AUTHOR)
-  // ) {
-  //   return Redirect();
-  // }
+  if (
+    (token &&
+      path.startsWith(APP_ROUTES.ADMIN.ROOT) &&
+      userType !== USER_ROLES.ADMIN) ||
+    (token &&
+      path.startsWith(APP_ROUTES.USER.ROOT) &&
+      userType !== USER_ROLES.USER)
+  ) {
+    return Redirect();
+  }
 
-  // const pathSegments = path.split("/");
-  // const endpoint = pathSegments.length >= 3 ? pathSegments[2] : null;
+  const pathSegments = path.split("/");
+  const endpoint = pathSegments.length >= 3 ? pathSegments[2] : null;
 
-  // const allowedRoles = endpoint ? permissions[endpoint] : undefined;
-  // if (allowedRoles && !checkAuthorization(request, allowedRoles)) {
-  //   return Redirect();
-  // }
-
-  // if (path !== APP_ROUTES.HOME) {
-  //   return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.url));
-  // }
+  const allowedRoles = endpoint ? permissions[endpoint] : undefined;
+  if (allowedRoles && !checkAuthorization(request, allowedRoles)) {
+    return Redirect();
+  }
 
   return NextResponse.next();
 }
@@ -98,9 +81,6 @@ export const config = {
     "/cookies",
     "/features",
     "/admin/:path*",
-    "/super-admin/:path*",
     "/user/:path*",
-    "/system/:path*",
-    "/author/:path*",
   ],
 };

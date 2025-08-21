@@ -14,10 +14,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n      mutation joinMeeting($input: JoinMeetingInput!) {\n        joinMeeting(input: $input) {\n          id\n        }\n      }\n    ": typeof types.JoinMeetingDocument,
     "\n      query recordings($query: GetRecordingsInput!) {\n        recordings(input: $query) {\n          edges {\n            node {\n              id\n              fileUrl\n              summary\n              transcript\n              createdAt\n              updatedAt\n              userMeetingId\n            }\n          }\n        }\n      }\n    ": typeof types.RecordingsDocument,
+    "\n      query me {\n        me {\n          id\n          email\n          name\n        }\n      }\n    ": typeof types.MeDocument,
 };
 const documents: Documents = {
+    "\n      mutation joinMeeting($input: JoinMeetingInput!) {\n        joinMeeting(input: $input) {\n          id\n        }\n      }\n    ": types.JoinMeetingDocument,
     "\n      query recordings($query: GetRecordingsInput!) {\n        recordings(input: $query) {\n          edges {\n            node {\n              id\n              fileUrl\n              summary\n              transcript\n              createdAt\n              updatedAt\n              userMeetingId\n            }\n          }\n        }\n      }\n    ": types.RecordingsDocument,
+    "\n      query me {\n        me {\n          id\n          email\n          name\n        }\n      }\n    ": types.MeDocument,
 };
 
 /**
@@ -37,7 +41,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n      mutation joinMeeting($input: JoinMeetingInput!) {\n        joinMeeting(input: $input) {\n          id\n        }\n      }\n    "): (typeof documents)["\n      mutation joinMeeting($input: JoinMeetingInput!) {\n        joinMeeting(input: $input) {\n          id\n        }\n      }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n      query recordings($query: GetRecordingsInput!) {\n        recordings(input: $query) {\n          edges {\n            node {\n              id\n              fileUrl\n              summary\n              transcript\n              createdAt\n              updatedAt\n              userMeetingId\n            }\n          }\n        }\n      }\n    "): (typeof documents)["\n      query recordings($query: GetRecordingsInput!) {\n        recordings(input: $query) {\n          edges {\n            node {\n              id\n              fileUrl\n              summary\n              transcript\n              createdAt\n              updatedAt\n              userMeetingId\n            }\n          }\n        }\n      }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      query me {\n        me {\n          id\n          email\n          name\n        }\n      }\n    "): (typeof documents)["\n      query me {\n        me {\n          id\n          email\n          name\n        }\n      }\n    "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

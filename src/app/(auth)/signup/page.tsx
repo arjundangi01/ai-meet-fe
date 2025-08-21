@@ -21,6 +21,8 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import GoogleButton from "./components/google-button";
+import FeatureHighlight from "./components/feature-highlight";
+import { APP_ROUTES } from "@/lib/constants/app-routes";
 
 const benefits = [
   {
@@ -129,7 +131,7 @@ export default function SignupPage() {
                   <p className="text-sm text-gray-600">
                     Already have an account?{" "}
                     <Link
-                      href="/login"
+                      href={APP_ROUTES.LOGIN}
                       className="text-blue-600 hover:text-blue-500 font-semibold"
                     >
                       Sign in
@@ -140,7 +142,7 @@ export default function SignupPage() {
             </Card>
 
             {/* Trust Indicators */}
-            <div className="mt-8 text-center max-w-md mx-auto">
+            {/* <div className="mt-8 text-center max-w-md mx-auto">
               <p className="text-sm text-gray-500 mb-4">
                 Trusted by innovative teams
               </p>
@@ -158,7 +160,7 @@ export default function SignupPage() {
                   <span className="text-xs">Lightning Fast</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column - Features & Social Proof */}
@@ -210,58 +212,10 @@ export default function SignupPage() {
             </div> */}
 
             {/* Feature Highlight */}
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Why teams love ReplayAI
-              </h3>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center text-blue-600 flex-shrink-0">
-                    <Mic className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-lg mb-2">
-                      AI-Powered Transcription
-                    </h4>
-                    <p className="text-gray-600">
-                      Get 99% accurate transcripts in real-time with speaker
-                      identification and timestamps.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-purple-600 flex-shrink-0">
-                    <FileText className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-lg mb-2">
-                      Smart Summaries
-                    </h4>
-                    <p className="text-gray-600">
-                      Automatically extract key decisions, action items, and
-                      important moments from every meeting.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-orange-100 to-red-100 rounded-xl flex items-center justify-center text-orange-600 flex-shrink-0">
-                    <Users className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-lg mb-2">
-                      Team Collaboration
-                    </h4>
-                    <p className="text-gray-600">
-                      Share insights, comment on transcripts, and collaborate on
-                      action items with your team.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <FeatureHighlight />
 
             {/* Security & Compliance */}
-            <div className="bg-gray-50 rounded-xl p-6">
+            {/* <div className="bg-gray-50 rounded-xl p-6">
               <div className="flex items-center justify-center mb-4">
                 <Shield className="h-10 w-10 text-green-600" />
               </div>
@@ -274,7 +228,7 @@ export default function SignupPage() {
                 <div>256-bit Encryption</div>
                 <div>HIPAA Ready</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

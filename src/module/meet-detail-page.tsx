@@ -33,6 +33,7 @@ import {
 import Link from "next/link";
 import { mockMeetings } from "@/lib/mock-data";
 import { toast } from "sonner";
+import { APP_ROUTES } from "@/lib/constants/app-routes";
 
 interface MeetingDetailPageProps {
   params: {
@@ -69,7 +70,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Link href="/meetings">
+          <Link href={APP_ROUTES.USER.MEETINGS}>
             <Button variant="ghost" size="sm">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Meetings

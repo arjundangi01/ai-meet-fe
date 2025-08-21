@@ -20,6 +20,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 import Image from "next/image";
 import GoogleButton from "../signup/components/google-button";
+import FeatureHighlight from "../signup/components/feature-highlight";
+import { APP_ROUTES } from "@/lib/constants/app-routes";
 
 const features = [
   {
@@ -94,7 +96,7 @@ export default function LoginPage() {
                   <p className="text-sm text-gray-600">
                     Don&apos;t have an account?{" "}
                     <Link
-                      href="/signup"
+                      href={APP_ROUTES.SIGNUP}
                       className="text-blue-600 hover:text-blue-500 font-semibold"
                     >
                       Sign up for free
@@ -105,7 +107,7 @@ export default function LoginPage() {
             </Card>
 
             {/* Trust Indicators */}
-            <div className="mt-8 text-center max-w-md mx-auto">
+            {/* <div className="mt-8 text-center max-w-md mx-auto">
               <p className="text-sm text-gray-500 mb-4">
                 Trusted by teams worldwide
               </p>
@@ -123,35 +125,16 @@ export default function LoginPage() {
                   <span className="text-xs">99% Uptime</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column - Features & Testimonials */}
           <div className="space-y-12">
             {/* Features */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                Why teams choose ReplayAI
-              </h2>
-              <div className="space-y-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center text-blue-600 flex-shrink-0">
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-lg">
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-600">{feature.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <FeatureHighlight />
 
             {/* Stats */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
+            {/* <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-6">
                 Join thousands of satisfied users
               </h3>
@@ -173,10 +156,10 @@ export default function LoginPage() {
                   <div className="text-blue-100">Support</div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Security Badge */}
-            <div className="bg-gray-50 rounded-xl p-6 text-center">
+            {/* <div className="bg-gray-50 rounded-xl p-6 text-center">
               <div className="flex items-center justify-center mb-3">
                 <Shield className="h-8 w-8 text-green-600" />
               </div>
@@ -187,7 +170,7 @@ export default function LoginPage() {
                 Your data is protected with bank-level encryption and SOC2
                 compliance
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

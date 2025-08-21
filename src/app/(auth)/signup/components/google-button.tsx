@@ -11,6 +11,8 @@ import { IOAuthUser } from "../../_types/auth";
 import { calendarScopes } from "@/lib/constants/common";
 import { useSocialSignup } from "../../_hooks/useAuth";
 import { redirectUser } from "../../_utils/helpers";
+import Cookies from "js-cookie";
+import { setAuthCookies } from "@/lib/utils/cookies";
 
 const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +44,7 @@ const GoogleButton = () => {
           email: string;
         };
       } = await SignInWithSocialMediaService(provider);
-      console.log("result", result);
+
       const oauthUser: IOAuthUser = {
         name: "",
         email: "",
@@ -68,6 +70,7 @@ const GoogleButton = () => {
       signupMutation(oauthUser, {
         onSuccess: (data) => {
           toast.success("Signed up successfully!");
+          setAuthCookies(data.accessToken);
           router.replace(redirectUser(data.user.role));
         },
         onError: (error) => {

@@ -41,6 +41,4 @@ export function setCookies(data: CookiesDataType) {
 export function clearCookies() {
   Cookies.remove(COOKIES.AUTH_TOKEN);
   Cookies.remove(COOKIES.USER_TYPE);
-  Cookies.remove(COOKIES.COMPANY_REF);
-  Cookies.remove(COOKIES.IS_ADMIN_PATH);
 }

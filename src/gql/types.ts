@@ -27,9 +27,21 @@ export type GetRecordingsInput = {
   meetingId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type JoinMeetingInput = {
+  /** The ID of the meeting to join */
+  meetingId: Scalars['String']['input'];
+};
+
+export type Meeting = {
+  __typename?: 'Meeting';
+  /** Example field (placeholder) */
+  id: Scalars['Int']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createRecording: Recording;
+  joinMeeting: Meeting;
   removeRecording: Recording;
   updateRecording: Recording;
 };
@@ -37,6 +49,11 @@ export type Mutation = {
 
 export type MutationCreateRecordingArgs = {
   createRecordingInput: CreateRecordingInput;
+};
+
+
+export type MutationJoinMeetingArgs = {
+  input: JoinMeetingInput;
 };
 
 
@@ -68,6 +85,7 @@ export type PaginatedRecordingResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  me: User;
   recording: Recording;
   recordings: PaginatedRecordingResponse;
 };
@@ -103,4 +121,24 @@ export type UpdateRecordingInput = {
   /** Example field (placeholder) */
   exampleField?: InputMaybe<Scalars['Int']['input']>;
   id: Scalars['Int']['input'];
+};
+
+export type User = {
+  __typename?: 'User';
+  /** User accessToken */
+  accessToken: Scalars['String']['output'];
+  /** User email */
+  email: Scalars['String']['output'];
+  /** User firebaseUid */
+  firebaseUid: Scalars['String']['output'];
+  /** User id */
+  id: Scalars['String']['output'];
+  /** User idToken */
+  idToken: Scalars['String']['output'];
+  /** User name */
+  name: Scalars['String']['output'];
+  /** User oauth */
+  oauth: Scalars['String']['output'];
+  /** User role */
+  role: Scalars['String']['output'];
 };

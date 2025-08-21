@@ -152,10 +152,10 @@ Arjun: Perfect. Let's schedule a post-launch review to analyze the impact on our
 ];
 
 export const dashboardStats: DashboardStats = {
-  totalMeetings: 47,
-  totalHours: 156,
-  summariesGenerated: 42,
-  transcriptsGenerated: 45,
+  totalMeetings: 0,
+  totalHours: 0,
+  summariesGenerated: 0,
+  transcriptsGenerated: 0,
 };
 
 export const mockUser = {
