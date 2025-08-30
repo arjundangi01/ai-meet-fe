@@ -1,4 +1,4 @@
-import MeetingDetailPage from "@/module/meet-detail-page";
+import MeetingDetailPage from "@/module/user/metting-detail/meet-detail-page";
 import React from "react";
 
 const Page = async ({ params }: { params: { id: string } }) => {
@@ -6,11 +6,3 @@ const Page = async ({ params }: { params: { id: string } }) => {
 };
 
 export default Page;
-
-export async function generateStaticParams() {
-  return [
-    {
-      id: "1",
-    },
-  ];
-}

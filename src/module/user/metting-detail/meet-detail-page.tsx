@@ -1,11 +1,7 @@
 "use client";
-import { useState } from "react";
-import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
@@ -34,6 +30,10 @@ import Link from "next/link";
 import { mockMeetings } from "@/lib/mock-data";
 import { toast } from "sonner";
 import { APP_ROUTES } from "@/lib/constants/app-routes";
+import { useUserMeeting } from "@/hooks/useUserMeeting";
+import Transcript from "./components/transcript";
+import Spinner from "@/components/common/spinner";
+import { useRouter } from "next/navigation";
 
 interface MeetingDetailPageProps {
   params: {
@@ -42,27 +42,23 @@ interface MeetingDetailPageProps {
 }
 
 export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const { data, isLoading } = useUserMeeting(params.id);
+  const participants = ["John Doe", "Jane Doe", "Jim Doe", "Jill Doe"];
 
-  const meeting = mockMeetings.find((m) => m.id === params.id);
+  const router = useRouter();
 
-  if (!meeting) {
-    notFound();
+  const meeting = data?.userMeeting;
+
+  if (isLoading) {
+    return <Spinner />;
   }
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+  if (!meeting) {
+    return <div>Meeting not found</div>;
+  }
 
   const handleShare = (type: string) => {
     toast.success(`Meeting ${type} copied to clipboard!`);
-  };
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -70,20 +66,18 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Link href={APP_ROUTES.USER.MEETINGS}>
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Meetings
-            </Button>
-          </Link>
+          <Button onClick={() => router.back()} variant="ghost" size="sm">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
-              {meeting.title}
+              {/* {meeting.title} */}
             </h1>
             <div className="flex items-center space-x-4 text-gray-600 mt-1">
               <div className="flex items-center">
                 <Calendar className="h-4 w-4 mr-1" />
-                {new Date(meeting.date).toLocaleDateString("en-US", {
+                {new Date(meeting.createdAt).toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
@@ -92,11 +86,11 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
               </div>
               <div className="flex items-center">
                 <Clock className="h-4 w-4 mr-1" />
-                {meeting.duration} minutes
+                {/* {meeting.duration} minutes */}
               </div>
               <div className="flex items-center">
                 <Users className="h-4 w-4 mr-1" />
-                {meeting.participants.length} participants
+                {participants.length} participants
               </div>
             </div>
           </div>
@@ -148,50 +142,21 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       </div>
 
       {/* Video Player */}
-      {meeting.videoUrl && meeting.status === "completed" && (
+      {meeting.fileUrl && (
         <Card>
           <CardContent className="p-6">
             <div className="aspect-video bg-black rounded-lg overflow-hidden relative">
-              <video
-                className="w-full h-full object-cover"
-                poster="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-                controls
-              >
-                <source src={meeting.videoUrl} type="video/mp4" />
+              <video className="w-full h-full object-cover" controls>
+                <source src={meeting.fileUrl} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-            </div>
-
-            {/* Video Controls */}
-            <div className="flex items-center justify-between mt-4 p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm" onClick={handlePlayPause}>
-                  {isPlaying ? (
-                    <Pause className="h-4 w-4" />
-                  ) : (
-                    <Play className="h-4 w-4" />
-                  )}
-                </Button>
-                <div className="flex items-center space-x-2">
-                  <Volume2 className="h-4 w-4 text-gray-600" />
-                  <div className="w-20 h-1 bg-gray-300 rounded-full">
-                    <div className="w-3/4 h-full bg-blue-600 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
-                <span>{formatTime(currentTime)}</span>
-                <span>/</span>
-                <span>{formatTime(meeting.duration * 60)}</span>
-              </div>
             </div>
           </CardContent>
         </Card>
       )}
 
       {/* Processing State */}
-      {meeting.status === "processing" && (
+      {!meeting.transcript && (
         <Card className="border-yellow-200 bg-yellow-50">
           <CardContent className="p-6 text-center">
             <div className="animate-spin h-8 w-8 border-2 border-yellow-600 border-t-transparent rounded-full mx-auto mb-4"></div>
@@ -207,7 +172,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       )}
 
       {/* Main Content */}
-      {meeting.status === "completed" && (
+      {meeting.transcript && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Transcript and Summary */}
           <div className="lg:col-span-2">
@@ -224,56 +189,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
               </TabsList>
 
               <TabsContent value="transcript">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle>Meeting Transcript</CardTitle>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleShare("transcript")}
-                    >
-                      <Copy className="h-4 w-4 mr-2" />
-                      Copy
-                    </Button>
-                  </CardHeader>
-                  <CardContent>
-                    <ScrollArea className="h-96 w-full">
-                      <div className="space-y-4 pr-4">
-                        {meeting.transcript
-                          ?.split("\n\n")
-                          .map((paragraph, index) => (
-                            <div key={index} className="space-y-2">
-                              {paragraph.split("\n").map((line, lineIndex) => {
-                                const speaker = line.split(":")[0];
-                                const content = line
-                                  .split(":")
-                                  .slice(1)
-                                  .join(":")
-                                  .trim();
-
-                                if (content) {
-                                  return (
-                                    <div
-                                      key={lineIndex}
-                                      className="flex flex-col space-x-3"
-                                    >
-                                      <span className="font-semibold text-blue-600 ">
-                                        {speaker}:
-                                      </span>
-                                      <span className="text-gray-700">
-                                        {content}
-                                      </span>
-                                    </div>
-                                  );
-                                }
-                                return null;
-                              })}
-                            </div>
-                          ))}
-                      </div>
-                    </ScrollArea>
-                  </CardContent>
-                </Card>
+                <Transcript meeting={meeting} />
               </TabsContent>
 
               <TabsContent value="summary">
@@ -290,7 +206,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
                     </div>
 
                     <Separator />
-
+                    {/* 
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-3">
                         Key Takeaways
@@ -306,7 +222,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    </div> */}
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -316,7 +232,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
           {/* Right Column - Meeting Details */}
           <div className="space-y-6">
             {/* Participants */}
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Users className="h-5 w-5 mr-2" />
@@ -325,7 +241,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {meeting.participants.map((participant, index) => (
+                  {participants.map((participant, index) => (
                     <div key={index} className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
                         {participant
@@ -338,7 +254,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Meeting Stats */}
             <Card>
@@ -349,23 +265,19 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Duration</span>
                   <span className="font-semibold">
-                    {meeting.duration} minutes
+                    {/* {meeting.duration} minutes */}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Recording Size</span>
-                  <span className="font-semibold">{meeting.recordingSize}</span>
+                  <span className="font-semibold">
+                    {/* {meeting.recordingSize} */}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Words Transcribed</span>
                   <span className="font-semibold">
                     {meeting.transcript?.split(" ").length || 0}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Key Points</span>
-                  <span className="font-semibold">
-                    {meeting.keyPoints?.length || 0}
                   </span>
                 </div>
               </CardContent>

@@ -15,7 +15,7 @@ interface RequestJoinMeetingProps {
 const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
   className,
 }) => {
-  const [meetingId, setMeetingId] = useState("");
+  const [meetingId, setMeetingId] = useState("ahd-vuci-xru");
 
   const { mutate: joinMeeting, isPending } = useJoinMeeting();
 

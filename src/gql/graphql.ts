@@ -29,6 +29,14 @@ export type GetRecordingsInput = {
   meetingId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type GetUserMeetingsInput = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['Float']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  meetingId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type JoinMeetingInput = {
   /** The ID of the meeting to join */
   meetingId: Scalars['String']['input'];
@@ -85,11 +93,22 @@ export type PaginatedRecordingResponse = {
   totalPage: Scalars['Int']['output'];
 };
 
+export type PaginatedUserMeetingResponse = {
+  __typename?: 'PaginatedUserMeetingResponse';
+  edges: Array<UserMeetingEdge>;
+  pageInfo: PageInfo;
+  pageSize: Scalars['Int']['output'];
+  totalCount: Scalars['Int']['output'];
+  totalPage: Scalars['Int']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   me: User;
   recording: Recording;
   recordings: PaginatedRecordingResponse;
+  userMeeting: UserMeeting;
+  userMeetings: PaginatedUserMeetingResponse;
 };
 
 
@@ -100,6 +119,16 @@ export type QueryRecordingArgs = {
 
 export type QueryRecordingsArgs = {
   input: GetRecordingsInput;
+};
+
+
+export type QueryUserMeetingArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserMeetingsArgs = {
+  input: GetUserMeetingsInput;
 };
 
 export type Recording = {
@@ -145,6 +174,25 @@ export type User = {
   role: Scalars['String']['output'];
 };
 
+export type UserMeeting = {
+  __typename?: 'UserMeeting';
+  containerId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['String']['output'];
+  fileUrl?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  meetingId: Scalars['String']['output'];
+  summary?: Maybe<Scalars['String']['output']>;
+  transcript?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export type UserMeetingEdge = {
+  __typename?: 'UserMeetingEdge';
+  cursor: Scalars['String']['output'];
+  node: UserMeeting;
+};
+
 export type JoinMeetingMutationVariables = Exact<{
   input: JoinMeetingInput;
 }>;
@@ -159,6 +207,20 @@ export type RecordingsQueryVariables = Exact<{
 
 export type RecordingsQuery = { __typename?: 'Query', recordings: { __typename?: 'PaginatedRecordingResponse', edges: Array<{ __typename?: 'RecordingEdge', node: { __typename?: 'Recording', id: string, fileUrl?: string | null, summary?: string | null, transcript?: string | null, createdAt: string, updatedAt: string, userMeetingId: string } }> } };
 
+export type UserMeetingsQueryVariables = Exact<{
+  input: GetUserMeetingsInput;
+}>;
+
+
+export type UserMeetingsQuery = { __typename?: 'Query', userMeetings: { __typename?: 'PaginatedUserMeetingResponse', edges: Array<{ __typename?: 'UserMeetingEdge', node: { __typename?: 'UserMeeting', id: string, fileUrl?: string | null, meetingId: string, summary?: string | null, transcript?: string | null, createdAt: string, updatedAt: string } }>, pageInfo: { __typename?: 'PageInfo', afterCursor?: string | null, beforeCursor?: string | null, hasNextPage: boolean, hasPreviousPage: boolean } } };
+
+export type UserMeetingQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type UserMeetingQuery = { __typename?: 'Query', userMeeting: { __typename?: 'UserMeeting', id: string, fileUrl?: string | null, meetingId: string, summary?: string | null, transcript?: string | null, createdAt: string, updatedAt: string, userId: string, containerId?: string | null } };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -167,4 +229,6 @@ export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: str
 
 export const JoinMeetingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"joinMeeting"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JoinMeetingInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"joinMeeting"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<JoinMeetingMutation, JoinMeetingMutationVariables>;
 export const RecordingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"recordings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetRecordingsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recordings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fileUrl"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"transcript"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userMeetingId"}}]}}]}}]}}]}}]} as unknown as DocumentNode<RecordingsQuery, RecordingsQueryVariables>;
+export const UserMeetingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"userMeetings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GetUserMeetingsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userMeetings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fileUrl"}},{"kind":"Field","name":{"kind":"Name","value":"meetingId"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"transcript"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"afterCursor"}},{"kind":"Field","name":{"kind":"Name","value":"beforeCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}}]}}]}}]}}]} as unknown as DocumentNode<UserMeetingsQuery, UserMeetingsQueryVariables>;
+export const UserMeetingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"userMeeting"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userMeeting"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fileUrl"}},{"kind":"Field","name":{"kind":"Name","value":"meetingId"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"transcript"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"containerId"}}]}}]}}]} as unknown as DocumentNode<UserMeetingQuery, UserMeetingQueryVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;

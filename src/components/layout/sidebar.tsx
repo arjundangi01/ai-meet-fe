@@ -26,27 +26,18 @@ const sidebarItems = [
     href: APP_ROUTES.USER.MEETINGS,
     icon: Video,
   },
-  {
-    title: "Recent",
-    href: "/meetings?filter=recent",
-    icon: Clock,
-  },
 
   {
     title: "Profile",
     href: APP_ROUTES.USER.PROFILE,
     icon: User,
   },
-  {
-    title: "Settings",
-    href: APP_ROUTES.USER.SETTINGS,
-    icon: Settings,
-  },
-  {
-    title: "Support",
-    href: APP_ROUTES.USER.SUPPORT,
-    icon: HelpCircle,
-  },
+
+  // {
+  //   title: "Support",
+  //   href: APP_ROUTES.USER.SUPPORT,
+  //   icon: HelpCircle,
+  // },
 ];
 
 interface SidebarProps {

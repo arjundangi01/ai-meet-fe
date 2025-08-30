@@ -10,6 +10,7 @@ export const APP_ROUTES = {
     PROFILE: "/user/profile",
     SETTINGS: "/user/settings",
     SUPPORT: "/user/support",
+    MEETING: (id: string) => `/user/meetings/${id}`,
   },
   ADMIN: {
     ROOT: "/admin",

@@ -27,6 +27,14 @@ export type GetRecordingsInput = {
   meetingId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type GetUserMeetingsInput = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['Float']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  meetingId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type JoinMeetingInput = {
   /** The ID of the meeting to join */
   meetingId: Scalars['String']['input'];
@@ -83,11 +91,22 @@ export type PaginatedRecordingResponse = {
   totalPage: Scalars['Int']['output'];
 };
 
+export type PaginatedUserMeetingResponse = {
+  __typename?: 'PaginatedUserMeetingResponse';
+  edges: Array<UserMeetingEdge>;
+  pageInfo: PageInfo;
+  pageSize: Scalars['Int']['output'];
+  totalCount: Scalars['Int']['output'];
+  totalPage: Scalars['Int']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   me: User;
   recording: Recording;
   recordings: PaginatedRecordingResponse;
+  userMeeting: UserMeeting;
+  userMeetings: PaginatedUserMeetingResponse;
 };
 
 
@@ -98,6 +117,16 @@ export type QueryRecordingArgs = {
 
 export type QueryRecordingsArgs = {
   input: GetRecordingsInput;
+};
+
+
+export type QueryUserMeetingArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserMeetingsArgs = {
+  input: GetUserMeetingsInput;
 };
 
 export type Recording = {
@@ -141,4 +170,23 @@ export type User = {
   oauth: Scalars['String']['output'];
   /** User role */
   role: Scalars['String']['output'];
+};
+
+export type UserMeeting = {
+  __typename?: 'UserMeeting';
+  containerId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['String']['output'];
+  fileUrl?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  meetingId: Scalars['String']['output'];
+  summary?: Maybe<Scalars['String']['output']>;
+  transcript?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export type UserMeetingEdge = {
+  __typename?: 'UserMeetingEdge';
+  cursor: Scalars['String']['output'];
+  node: UserMeeting;
 };

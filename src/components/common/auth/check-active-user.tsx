@@ -22,9 +22,7 @@ export default function CheckActiveStatus() {
       clearCookies();
       router.replace(APP_ROUTES.LOGIN);
       return;
-    }
-
-    if (userData?.me) {
+    } else if (userData?.me) {
       setUser(userData.me);
     }
   }, [isLoading, isSuccess, isError, userData, router, setUser]);

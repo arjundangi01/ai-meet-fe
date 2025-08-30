@@ -71,6 +71,7 @@ const GoogleButton = () => {
         onSuccess: (data) => {
           toast.success("Signed up successfully!");
           setAuthCookies(data.accessToken);
+          console.log("data", data.user.role);
           router.replace(redirectUser(data.user.role));
         },
         onError: (error) => {

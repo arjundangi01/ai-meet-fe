@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -12,19 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Search,
-  Filter,
-  Calendar,
-  Clock,
-  Users,
-  Play,
-  Download,
-  MoreHorizontal,
-  Eye,
-} from "lucide-react";
-import Link from "next/link";
+import { Search, Filter } from "lucide-react";
 import { mockMeetings } from "@/lib/mock-data";
+import MeetingGrid from "./components/meeting-grid";
 
 export default function MeetingsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -113,91 +102,7 @@ export default function MeetingsPage() {
       </Card>
 
       {/* Meetings Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {sortedMeetings.map((meeting) => (
-          <Card key={meeting.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                    <Play className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <CardTitle className="text-lg truncate">
-                      {meeting.title}
-                    </CardTitle>
-                  </div>
-                </div>
-              </div>
-            </CardHeader>
-
-            <CardContent className="space-y-4">
-              {/* Meeting Info */}
-              <div className="space-y-2 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  {new Date(meeting.date).toLocaleDateString("en-US", {
-                    weekday: "short",
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </div>
-                <div className="flex items-center">
-                  <Clock className="h-4 w-4 mr-2" />
-                  {meeting.duration} minutes
-                </div>
-                <div className="flex items-center">
-                  <Users className="h-4 w-4 mr-2" />
-                  {meeting.participants.length} participant
-                  {meeting.participants.length !== 1 ? "s" : ""}
-                </div>
-              </div>
-
-              {/* Participants */}
-              <div>
-                <p className="text-xs text-gray-500 mb-1">Participants</p>
-                <div className="flex flex-wrap gap-1">
-                  {meeting.participants
-                    .slice(0, 3)
-                    .map((participant, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
-                        {participant}
-                      </Badge>
-                    ))}
-                  {meeting.participants.length > 3 && (
-                    <Badge variant="outline" className="text-xs">
-                      +{meeting.participants.length - 3} more
-                    </Badge>
-                  )}
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex items-center justify-between pt-2 border-t">
-                <div className="text-xs text-gray-500">
-                  {meeting.recordingSize}
-                </div>
-                <div className="flex space-x-2">
-                  <Link href={`/user/meetings/${meeting.id}`}>
-                    <Button size="sm" variant="outline">
-                      <Eye className="h-3 w-3 mr-1" />
-                      View
-                    </Button>
-                  </Link>
-                  {meeting.status === "completed" && (
-                    <Button size="sm" variant="outline">
-                      <Download className="h-3 w-3 mr-1" />
-                      Export
-                    </Button>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
+      <MeetingGrid />
       {/* Empty State */}
       {sortedMeetings.length === 0 && (
         <Card>

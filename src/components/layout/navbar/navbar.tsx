@@ -26,7 +26,6 @@ export default function Navbar() {
   const navItems = [
     { href: APP_ROUTES.USER.DASHBOARD, label: "Dashboard" },
     { href: APP_ROUTES.USER.MEETINGS, label: "Meetings" },
-    { href: APP_ROUTES.USER.SUPPORT, label: "Support" },
   ];
 
   return (
