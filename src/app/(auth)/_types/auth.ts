@@ -27,3 +27,7 @@ export interface PasswordCheckList {
   hasNumber: boolean;
   hasSpecialChar: boolean;
 }
+
+export interface IBetaRequest {
+  email: string;
+}

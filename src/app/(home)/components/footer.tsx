@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "@/lib/constants/app-routes";
 import { Video } from "lucide-react";
 import React from "react";
 
@@ -56,12 +57,12 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
-                  Contact
+                <a href={APP_ROUTES.TERMS} className="hover:text-white">
+                  Terms
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
+                <a href={APP_ROUTES.PRIVACY} className="hover:text-white">
                   Privacy
                 </a>
               </li>

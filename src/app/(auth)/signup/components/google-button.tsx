@@ -24,6 +24,7 @@ const GoogleButton = () => {
   const { mutate: signupMutation, isPending } = useSocialSignup();
 
   const handleGoogleSignIn = async () => {
+    return;
     setIsLoading(true);
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
@@ -78,23 +79,20 @@ const GoogleButton = () => {
         onSuccess: (data) => {
           toast.success("Signed up successfully!");
           setAuthCookies(data.accessToken);
-          console.log("data", data.user.role);
           router.replace(redirectUser(data.user.role));
         },
         onError: (error) => {
-          console.log("error", error);
           toast.error("Signed up failed!");
         },
       });
     } catch (error) {
-      console.error("Google authentication error:", error);
       toast.error("Google sign-in failed. Please try again.");
     }
   };
   return (
     <Button
       onClick={handleGoogleSignIn}
-      disabled={isLoading || isPending}
+      disabled={isLoading || isPending || true}
       className="w-full h-14 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200"
       variant="outline"
     >

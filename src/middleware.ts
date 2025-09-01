@@ -21,7 +21,13 @@ function checkAuthorization(
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const publicPaths = [APP_ROUTES.HOME, APP_ROUTES.LOGIN, APP_ROUTES.SIGNUP];
+  const publicPaths = [
+    APP_ROUTES.HOME,
+    APP_ROUTES.LOGIN,
+    APP_ROUTES.SIGNUP,
+    APP_ROUTES.PRIVACY,
+    APP_ROUTES.TERMS,
+  ];
 
   const isPublicPath = publicPaths.includes(path as typeof APP_ROUTES.HOME);
   const token = request.cookies.get(COOKIES.AUTH_TOKEN)?.value || "";
@@ -31,12 +37,12 @@ export function middleware(request: NextRequest) {
     if (token) {
       switch (userType) {
         case USER_ROLES.USER:
-          return NextResponse.redirect(
+          return NextResponse.rewrite(
             new URL(APP_ROUTES.USER.DASHBOARD, request.url)
           );
       }
     }
-    return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.url));
+    return NextResponse.rewrite(new URL(APP_ROUTES.HOME, request.url));
   };
 
   if (token && isPublicPath) {

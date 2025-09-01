@@ -85,7 +85,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
               </TabsContent>
 
               <TabsContent value="summary">
-                <MeetingSummary />
+                <MeetingSummary summary={meeting?.summary || ""} />
               </TabsContent>
             </Tabs>
           </div>

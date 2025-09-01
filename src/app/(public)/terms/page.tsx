@@ -29,7 +29,7 @@ export default function TermsOfServicePage() {
                 <Video className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                MeetingAI
+                ReplayAI
               </span>
             </Link>
             <div className="flex items-center space-x-4">
@@ -66,7 +66,7 @@ export default function TermsOfServicePage() {
             Terms of Service
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            These terms govern your use of MeetingAI and outline our mutual
+            These terms govern your use of ReplayAI and outline our mutual
             responsibilities.
           </p>
           <p className="text-sm text-gray-500 mt-4">
@@ -116,7 +116,7 @@ export default function TermsOfServicePage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 mb-4">
-                By accessing or using MeetingAI (&quot;Service&quot;), you agree
+                By accessing or using ReplayAI (&quot;Service&quot;), you agree
                 to be bound by these Terms of Service (&quot;Terms&quot;). If
                 you disagree with any part of these terms, you may not access
                 the Service.
@@ -136,7 +136,7 @@ export default function TermsOfServicePage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 mb-4">
-                MeetingAI is an AI-powered platform that provides:
+                ReplayAI is an AI-powered platform that provides:
               </p>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start space-x-3">

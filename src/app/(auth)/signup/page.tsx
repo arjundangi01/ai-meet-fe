@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import GoogleButton from "./components/google-button";
 import FeatureHighlight from "./components/feature-highlight";
 import { APP_ROUTES } from "@/lib/constants/app-routes";
+import BetaNotice from "./components/beta-notice";
 
 const benefits = [
   {
@@ -86,7 +87,7 @@ export default function SignupPage() {
               </Link>
             </div>
 
-            <Card className="shadow-2xl border-0 max-w-md mx-auto w-full">
+            {/* <Card className="shadow-2xl border-0 max-w-md mx-auto w-full">
               <CardHeader className="text-center pb-6">
                 <div className="flex justify-center mb-4">
                   <Badge
@@ -106,10 +107,8 @@ export default function SignupPage() {
               </CardHeader>
 
               <CardContent className="space-y-6 px-8 pb-8">
-                {/* Google Signup Button */}
                 <GoogleButton />
 
-                {/* Benefits */}
                 <div className="space-y-3">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-center space-x-3">
@@ -139,7 +138,9 @@ export default function SignupPage() {
                   </p>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
+
+            <BetaNotice />
 
             {/* Trust Indicators */}
             {/* <div className="mt-8 text-center max-w-md mx-auto">

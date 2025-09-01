@@ -41,7 +41,6 @@ export const SignInWithSocialMediaService = async (
       throw new Error("User object is null.");
     }
   } catch (error) {
-    console.log("error", error);
     throw error;
   }
 };

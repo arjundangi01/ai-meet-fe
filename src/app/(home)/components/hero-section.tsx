@@ -43,7 +43,7 @@ const HeroSection = () => {
               details again.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link href={APP_ROUTES.USER.DASHBOARD}>
+              <Link href={APP_ROUTES.LOGIN}>
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-8 py-4 text-lg"

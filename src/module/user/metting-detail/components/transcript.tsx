@@ -17,8 +17,6 @@ const Transcript = ({
     text: string;
   }[];
 
-  console.log("here", transcripts);
-
   const handleCopy = () => {
     const text = transcripts
       .map((transcript) => `${transcript.speaker}: ${transcript.text}`)

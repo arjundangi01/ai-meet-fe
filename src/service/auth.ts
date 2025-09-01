@@ -60,9 +60,7 @@ class AuthService {
         localStorage.setItem("accessToken", data.accessToken);
         return data.accessToken;
       }
-    } catch (error) {
-      console.error("Token refresh failed:", error);
-    }
+    } catch (error) {}
 
     return null;
   }

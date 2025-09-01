@@ -9,4 +9,5 @@ export const setAuthCookies = (token: string) => {
 
 export const removeAuthCookies = () => {
   Cookies.remove(COOKIES.AUTH_TOKEN);
+  Cookies.remove(COOKIES.USER_TYPE);
 };
