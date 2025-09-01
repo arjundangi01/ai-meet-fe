@@ -73,7 +73,7 @@ const ProfileTab = ({
       </Card>
 
       {/* Usage Statistics */}
-      <Card>
+      {/* <Card>
         <CardHeader>
           <CardTitle>Usage Statistics</CardTitle>
         </CardHeader>
@@ -97,7 +97,7 @@ const ProfileTab = ({
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 };

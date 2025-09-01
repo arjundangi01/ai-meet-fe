@@ -55,7 +55,7 @@ export default function UserProfilePage() {
             <User className="h-4 w-4" />
             <span>Profile</span>
           </TabsTrigger>
-          <TabsTrigger
+          {/* <TabsTrigger
             value="notifications"
             className="flex items-center space-x-2"
           >
@@ -69,7 +69,7 @@ export default function UserProfilePage() {
           <TabsTrigger value="billing" className="flex items-center space-x-2">
             <CreditCard className="h-4 w-4" />
             <span>Billing</span>
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
 
         {/* Profile Tab */}

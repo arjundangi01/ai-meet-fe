@@ -8,7 +8,11 @@ import { authService } from "@/service/auth";
 import firebase from "firebase/compat/app";
 import { SignInWithSocialMediaService } from "@/service/firebase-service";
 import { IOAuthUser } from "../../_types/auth";
-import { calendarScopes } from "@/lib/constants/common";
+import {
+  AUTH_SCOPES,
+  calendarScopes,
+  googleMeetScopes,
+} from "@/lib/constants/common";
 import { useSocialSignup } from "../../_hooks/useAuth";
 import { redirectUser } from "../../_utils/helpers";
 import Cookies from "js-cookie";
@@ -18,13 +22,16 @@ const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { mutate: signupMutation, isPending } = useSocialSignup();
+
   const handleGoogleSignIn = async () => {
+    setIsLoading(true);
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
       provider.setCustomParameters({
         prompt: "select_account",
       });
-      provider.addScope(calendarScopes);
+
+      AUTH_SCOPES.forEach((scope) => provider.addScope(scope));
       signInWithSocialMedia(provider, "google").catch(() => {
         toast.error("Signed up failed!");
       });

@@ -52,7 +52,7 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                  pathname === item.href
+                  pathname.includes(item.href) || pathname === item.href
                     ? "text-blue-600 border-b-2 border-blue-600 pb-1"
                     : "text-gray-600"
                 }`}

@@ -58,8 +58,8 @@ export default function Sidebar({ className }: SidebarProps) {
                 href={item.href}
                 className={cn(
                   "flex items-center rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
-                  pathname === item.href
-                    ? "bg-accent text-accent-foreground"
+                  pathname.includes(item.href) || pathname === item.href
+                    ? "bg-blue-50 text-blue-600"
                     : "transparent"
                 )}
               >

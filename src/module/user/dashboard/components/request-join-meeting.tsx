@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Video, Loader2, Users, Calendar, Clock } from "lucide-react";
 import { useJoinMeeting } from "@/hooks/useMeeting";
+import { toast } from "sonner";
 
 interface RequestJoinMeetingProps {
   className?: string;
@@ -24,9 +25,19 @@ const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
       return;
     }
 
-    joinMeeting({
-      meetingId: meetingId.trim(),
-    });
+    joinMeeting(
+      {
+        meetingId: meetingId.trim(),
+      },
+      {
+        onSuccess: () => {
+          toast.success("Meeting joined successfully.");
+        },
+        onError: () => {
+          toast.error("Meeting joining failed.");
+        },
+      }
+    );
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

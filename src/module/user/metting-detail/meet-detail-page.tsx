@@ -2,38 +2,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  ArrowLeft,
-  Play,
-  Pause,
-  Download,
-  Share,
-  Calendar,
-  Clock,
-  Users,
-  FileText,
-  Lightbulb,
-  Volume2,
-  MoreHorizontal,
-  Copy,
-  Mail,
-  Link as LinkIcon,
-} from "lucide-react";
-import Link from "next/link";
-import { mockMeetings } from "@/lib/mock-data";
-import { toast } from "sonner";
-import { APP_ROUTES } from "@/lib/constants/app-routes";
+import { Share, FileText, Lightbulb } from "lucide-react";
 import { useUserMeeting } from "@/hooks/useUserMeeting";
 import Transcript from "./components/transcript";
 import Spinner from "@/components/common/spinner";
-import { useRouter } from "next/navigation";
+import MeetingSummary from "./components/summary";
+import Header from "./components/header";
 
 interface MeetingDetailPageProps {
   params: {
@@ -43,9 +17,6 @@ interface MeetingDetailPageProps {
 
 export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
   const { data, isLoading } = useUserMeeting(params.id);
-  const participants = ["John Doe", "Jane Doe", "Jim Doe", "Jill Doe"];
-
-  const router = useRouter();
 
   const meeting = data?.userMeeting;
 
@@ -57,89 +28,10 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
     return <div>Meeting not found</div>;
   }
 
-  const handleShare = (type: string) => {
-    toast.success(`Meeting ${type} copied to clipboard!`);
-  };
-
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <Button onClick={() => router.back()} variant="ghost" size="sm">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              {/* {meeting.title} */}
-            </h1>
-            <div className="flex items-center space-x-4 text-gray-600 mt-1">
-              <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-1" />
-                {new Date(meeting.createdAt).toLocaleDateString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </div>
-              <div className="flex items-center">
-                <Clock className="h-4 w-4 mr-1" />
-                {/* {meeting.duration} minutes */}
-              </div>
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-1" />
-                {participants.length} participants
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-3">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                <Share className="h-4 w-4 mr-2" />
-                Share
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => handleShare("link")}>
-                <LinkIcon className="h-4 w-4 mr-2" />
-                Copy Link
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleShare("email")}>
-                <Mail className="h-4 w-4 mr-2" />
-                Share via Email
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                <Download className="h-4 w-4 mr-2" />
-                Export
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>
-                <FileText className="h-4 w-4 mr-2" />
-                Download Transcript (PDF)
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <FileText className="h-4 w-4 mr-2" />
-                Download Summary (TXT)
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Download className="h-4 w-4 mr-2" />
-                Download Audio (MP3)
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
+      <Header meeting={meeting} />
 
       {/* Video Player */}
       {meeting.fileUrl && (
@@ -193,38 +85,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
               </TabsContent>
 
               <TabsContent value="summary">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>AI-Generated Summary</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                      <h4 className="font-semibold text-blue-900 mb-2">
-                        Executive Summary
-                      </h4>
-                      <p className="text-blue-800">{meeting.summary}</p>
-                    </div>
-
-                    <Separator />
-                    {/* 
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-3">
-                        Key Takeaways
-                      </h4>
-                      <ul className="space-y-2">
-                        {meeting.keyPoints?.map((point, index) => (
-                          <li
-                            key={index}
-                            className="flex items-start space-x-3"
-                          >
-                            <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-gray-700">{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div> */}
-                  </CardContent>
-                </Card>
+                <MeetingSummary />
               </TabsContent>
             </Tabs>
           </div>

@@ -1,10 +1,11 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, Download } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UserMeetingQuery } from "@/gql/graphql";
 import { parseJson } from "@/lib/utils/transform-data";
+import { toast } from "sonner";
 
 const Transcript = ({
   meeting,
@@ -18,18 +19,41 @@ const Transcript = ({
 
   console.log("here", transcripts);
 
+  const handleCopy = () => {
+    const text = transcripts
+      .map((transcript) => `${transcript.speaker}: ${transcript.text}`)
+      .join("\n");
+
+    navigator.clipboard.writeText(text);
+    toast.success("Transcript copied to clipboard");
+  };
+  const handleDownload = () => {
+    const text = transcripts
+      .map((transcript) => `${transcript.speaker}: ${transcript.text}`)
+      .join("\n");
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "transcript.txt";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <CardTitle>Meeting Transcript</CardTitle>
-        <Button
-          variant="outline"
-          size="sm"
-          //   onClick={() => handleShare("transcript")}
-        >
-          <Copy className="h-4 w-4 mr-2" />
-          Copy
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={handleCopy}>
+            <Copy className="w-4 h-4 mr-1" />
+            Copy
+          </Button>
+          <Button variant="outline" size="sm" onClick={handleDownload}>
+            <Download className="w-4 h-4 mr-1" />
+            Download
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-96 w-full">
