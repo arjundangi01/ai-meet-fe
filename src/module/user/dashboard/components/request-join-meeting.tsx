@@ -16,7 +16,7 @@ interface RequestJoinMeetingProps {
 const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
   className,
 }) => {
-  const [meetingId, setMeetingId] = useState("ahd-vuci-xru");
+  const [meetingId, setMeetingId] = useState("");
 
   const { mutate: joinMeeting, isPending } = useJoinMeeting();
 
@@ -77,7 +77,7 @@ const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
           <div className="flex-1">
             <Input
               type="text"
-              placeholder="Enter meeting ID (e.g., 123-456-789)"
+              placeholder="Enter meeting ID (e.g., abc-abc-xyz)"
               value={meetingId}
               onChange={handleInputChange}
               disabled={isPending}
