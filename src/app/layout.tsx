@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "ReplayAI - AI-Powered Meeting Assistant",
   description:
-    "Transform your meetings into actionable insights with AI-powered transcription, summaries, and highlights. ",
+    "Transform your meetings into actionable insights with AI-powered transcription, summaries, and highlights.",
 };
 
 export default function RootLayout({
