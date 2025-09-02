@@ -24,7 +24,6 @@ const GoogleButton = () => {
   const { mutate: signupMutation, isPending } = useSocialSignup();
 
   const handleGoogleSignIn = async () => {
-    return;
     setIsLoading(true);
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
@@ -92,7 +91,7 @@ const GoogleButton = () => {
   return (
     <Button
       onClick={handleGoogleSignIn}
-      disabled={isLoading || isPending || true}
+      disabled={isLoading || isPending}
       className="w-full h-14 bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200"
       variant="outline"
     >
