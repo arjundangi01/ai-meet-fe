@@ -19,10 +19,9 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import Image from "next/image";
-import GoogleButton from "../signup/components/google-button";
-import FeatureHighlight from "../signup/components/feature-highlight";
 import { APP_ROUTES } from "@/lib/constants/app-routes";
-import BetaNotice from "../signup/components/beta-notice";
+import GoogleButton from "../../signup/components/google-button";
+import FeatureHighlight from "../../signup/components/feature-highlight";
 
 const features = [
   {
@@ -80,7 +79,7 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            {/* <Card className="shadow-2xl border-0 max-w-md mx-auto w-full">
+            <Card className="shadow-2xl border-0 max-w-md mx-auto w-full">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-3xl font-bold text-gray-900">
                   Welcome back
@@ -105,8 +104,8 @@ export default function LoginPage() {
                   </p>
                 </div>
               </CardContent>
-            </Card> */}
-            <BetaNotice />
+            </Card>
+            {/* <BetaNotice /> */}
             {/* Trust Indicators */}
             {/* <div className="mt-8 text-center max-w-md mx-auto">
               <p className="text-sm text-gray-500 mb-4">

@@ -87,7 +87,7 @@ export default function SignupPage() {
               </Link>
             </div>
 
-            <Card className="shadow-2xl border-0 max-w-md mx-auto w-full">
+            {/* <Card className="shadow-2xl border-0 max-w-md mx-auto w-full">
               <CardHeader className="text-center pb-6">
                 <div className="flex justify-center mb-4">
                   <Badge
@@ -138,9 +138,9 @@ export default function SignupPage() {
                   </p>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
-            {/* <BetaNotice /> */}
+            <BetaNotice />
 
             {/* Trust Indicators */}
             {/* <div className="mt-8 text-center max-w-md mx-auto">
