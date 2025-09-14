@@ -34,6 +34,7 @@ const GoogleButton = () => {
       AUTH_SCOPES.forEach((scope) => provider.addScope(scope));
       signInWithSocialMedia(provider, "google").catch(() => {
         toast.error("Signed up failed!");
+        setIsLoading(false);
       });
     }
   };
