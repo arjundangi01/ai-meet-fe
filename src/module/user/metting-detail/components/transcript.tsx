@@ -12,10 +12,12 @@ const Transcript = ({
 }: {
   meeting: UserMeetingQuery["userMeeting"];
 }) => {
-  const transcripts = parseJson(meeting.transcript || "") as {
+  console.log(meeting.transcript);
+  const transcripts = parseJson(meeting.transcript || "[]") as {
     speaker: string;
     text: string;
   }[];
+  console.log("after", transcripts);
 
   const handleCopy = () => {
     const text = transcripts

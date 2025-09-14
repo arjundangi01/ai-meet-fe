@@ -18,7 +18,7 @@ const MeetingSummary: React.FC<MeetingSummaryProps> = ({
 }) => {
   const toc = useMemo(() => {
     const headings: string[] = [];
-    summary.split("\n").forEach((line) => {
+    summary.split("\n").forEach((line: string) => {
       const match = line.match(/^#{1,6}\s+(.*)/);
       if (match) headings.push(match[1] || "");
     });

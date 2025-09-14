@@ -48,7 +48,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       )}
 
       {/* Processing State */}
-      {!meeting.transcript && (
+      {/* {!meeting.transcript && (
         <Card className="border-yellow-200 bg-yellow-50">
           <CardContent className="p-6 text-center">
             <div className="animate-spin h-8 w-8 border-2 border-yellow-600 border-t-transparent rounded-full mx-auto mb-4"></div>
@@ -61,10 +61,10 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
             </p>
           </CardContent>
         </Card>
-      )}
+      )} */}
 
       {/* Main Content */}
-      {meeting.transcript && (
+      {meeting?.transcript && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Transcript and Summary */}
           <div className="lg:col-span-2">
