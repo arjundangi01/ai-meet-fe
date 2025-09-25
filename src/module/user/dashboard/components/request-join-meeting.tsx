@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Bot, Video, Loader2, Users, Calendar, Clock } from "lucide-react";
 import { useJoinMeeting } from "@/hooks/useMeeting";
 import { toast } from "sonner";
+import { getGoogleMeetId } from "../../metting-detail/utils/join-meet";
 
 interface RequestJoinMeetingProps {
   className?: string;
@@ -21,13 +22,16 @@ const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
   const { mutate: joinMeeting, isPending } = useJoinMeeting();
 
   const handleJoinMeeting = async () => {
-    if (!meetingId.trim()) {
+    const googleMeetId = getGoogleMeetId(meetingId);
+
+    if (!googleMeetId || !googleMeetId?.trim()) {
+      toast.error("Invalid Google Meet URL");
       return;
     }
 
     joinMeeting(
       {
-        meetingId: meetingId.trim(),
+        meetingId: googleMeetId.trim(),
       },
       {
         onSuccess: () => {
@@ -57,7 +61,7 @@ const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
                 Join Meeting with AI Bot
               </CardTitle>
               <p className="text-sm text-gray-600 mt-1">
-                Enter a meeting ID to have our AI bot join, record, and
+                Enter a Google Meet URL to have our AI bot join, record, and
                 summarize your meeting
               </p>
             </div>
@@ -77,7 +81,7 @@ const RequestJoinMeeting: React.FC<RequestJoinMeetingProps> = ({
           <div className="flex-1">
             <Input
               type="text"
-              placeholder="Enter meeting ID (e.g., abc-abc-xyz)"
+              placeholder="Enter Google Meet URL (e.g., https://meet.google.com/abc-abc-xyz)"
               value={meetingId}
               onChange={handleInputChange}
               disabled={isPending}

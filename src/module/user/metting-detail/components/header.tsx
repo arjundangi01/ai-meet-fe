@@ -25,10 +25,11 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { UserMeetingQuery } from "@/gql/graphql";
+import { parseJson } from "@/lib/utils/transform-data";
 
 const Header = ({ meeting }: { meeting: UserMeetingQuery["userMeeting"] }) => {
   const router = useRouter();
-  const participants = ["John Doe", "Jane Doe", "Jim Doe", "Jill Doe"];
+  const participants = parseJson(meeting.participants || "[]") as string[];
 
   const handleShare = (type: string) => {
     toast.success(`Meeting ${type} copied to clipboard!`);

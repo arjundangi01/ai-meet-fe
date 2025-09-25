@@ -12,6 +12,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
 };
 
 export type CreateRecordingInput = {
@@ -175,13 +176,14 @@ export type User = {
 export type UserMeeting = {
   __typename?: 'UserMeeting';
   containerId?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
   fileUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   meetingId: Scalars['String']['output'];
+  participants?: Maybe<Scalars['String']['output']>;
   summary?: Maybe<Scalars['String']['output']>;
   transcript?: Maybe<Scalars['String']['output']>;
-  updatedAt: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   userId: Scalars['String']['output'];
 };
 

@@ -16,6 +16,7 @@ export class UserMeetingApi {
               transcript
               createdAt
               updatedAt
+              participants
             }
           }
           pageInfo {
@@ -43,6 +44,7 @@ export class UserMeetingApi {
           updatedAt
           userId
           containerId
+          participants
         }
       }
     `);

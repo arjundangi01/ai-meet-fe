@@ -20,6 +20,8 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
 
   const meeting = data?.userMeeting;
 
+  const isMeetingInPast = new Date(meeting?.createdAt) < new Date();
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -48,7 +50,7 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       )}
 
       {/* Processing State */}
-      {/* {!meeting.transcript && (
+      {!meeting.transcript && !isMeetingInPast && (
         <Card className="border-yellow-200 bg-yellow-50">
           <CardContent className="p-6 text-center">
             <div className="animate-spin h-8 w-8 border-2 border-yellow-600 border-t-transparent rounded-full mx-auto mb-4"></div>
@@ -61,7 +63,21 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
             </p>
           </CardContent>
         </Card>
-      )} */}
+      )}
+
+      {/* Meeting in past and dont have transcript, show user friendly message, says unable or bot not able to process */}
+      {isMeetingInPast && !meeting.transcript && (
+        <Card className="border-red-200 bg-red-50">
+          <CardContent className="p-6 text-center">
+            <h3 className="text-lg font-semibold text-red-900 mb-2">
+              Unable to Process Meeting
+            </h3>
+            <p className="text-red-800">
+              AI was unable to process your meeting.
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Main Content */}
       {meeting?.transcript && (
