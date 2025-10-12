@@ -5,7 +5,7 @@ export const googleMeetScopesRead =
   "https://www.googleapis.com/auth/meetings.space.readonly";
 
 export const AUTH_SCOPES = [
-  calendarScopes,
-  googleMeetScopes,
-  googleMeetScopesRead,
+  // calendarScopes,
+  // googleMeetScopes,
+  // googleMeetScopesRead,
 ];

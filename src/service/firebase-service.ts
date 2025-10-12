@@ -14,16 +14,16 @@ export const SignInWithSocialMediaService = async (
     const grantedScopes = (result.additionalUserInfo?.profile as any)
       ?.granted_scopes;
 
-    AUTH_SCOPES.forEach((scope) => {
-      if (!grantedScopes.includes(scope)) {
-        if (scope === calendarScopes) {
-          throw new Error("Calendar access is required.");
-        }
-        if (scope === googleMeetScopes) {
-          throw new Error("Google Meet access is required.");
-        }
-      }
-    });
+    // AUTH_SCOPES.forEach((scope) => {
+    //   if (!grantedScopes.includes(scope)) {
+    //     if (scope === calendarScopes) {
+    //       throw new Error("Calendar access is required.");
+    //     }
+    //     if (scope === googleMeetScopes) {
+    //       throw new Error("Google Meet access is required.");
+    //     }
+    //   }
+    // });
 
     if (result.user) {
       const { displayName, uid, email } = result.user;
