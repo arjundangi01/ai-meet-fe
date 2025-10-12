@@ -95,6 +95,10 @@ const ModernMeetingsList: React.FC<ModernMeetingsListProps> = ({
                   {/* Date and time */}
                   <div className="flex items-center space-x-4 text-sm text-gray-600">
                     <div className="flex items-center space-x-1">
+                      <Video className="h-4 w-4" />
+                      <span>{meeting.node.meeting?.name || "Google Meet"}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
                       <Calendar className="h-4 w-4" />
                       <span>{formattedDate}</span>
                     </div>

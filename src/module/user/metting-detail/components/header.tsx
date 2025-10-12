@@ -22,6 +22,7 @@ import {
   Lightbulb,
   Mail,
   Link as LinkIcon,
+  Video,
 } from "lucide-react";
 import { toast } from "sonner";
 import { UserMeetingQuery } from "@/gql/graphql";
@@ -47,6 +48,10 @@ const Header = ({ meeting }: { meeting: UserMeetingQuery["userMeeting"] }) => {
             {/* {meeting.title} */}
           </h1>
           <div className="flex items-center space-x-4 text-gray-600 mt-1">
+            <div className="flex items-center">
+              <Video className="h-4 w-4 mr-1" />
+              {meeting.meeting?.name || "Google Meet"}
+            </div>
             <div className="flex items-center">
               <Calendar className="h-4 w-4 mr-1" />
               {new Date(meeting.createdAt).toLocaleDateString("en-US", {

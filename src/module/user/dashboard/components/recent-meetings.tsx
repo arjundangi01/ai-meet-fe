@@ -11,6 +11,7 @@ import {
   ArrowRight,
   MoreHorizontal,
   Eye,
+  Video,
 } from "lucide-react";
 import Link from "next/link";
 import { APP_ROUTES } from "@/lib/constants/app-routes";
@@ -56,6 +57,10 @@ const RecentMeetings = () => {
                     <div>
                       {/* <h3 className="font-medium text-gray-900">{meeting.title}</h3> */}
                       <div className="flex items-center space-x-3 text-sm text-gray-500">
+                        <div className="flex items-center">
+                          <Video className="h-3 w-3 mr-1" />
+                          {meeting.node.meeting?.name || "Google Meet"}
+                        </div>
                         <div className="flex items-center">
                           <Calendar className="h-3 w-3 mr-1" />
                           {new Date(

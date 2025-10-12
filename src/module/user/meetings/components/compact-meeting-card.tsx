@@ -22,15 +22,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { UserMeetingsQuery } from "@/gql/graphql";
 
 interface CompactMeetingCardProps {
-  meeting: {
-    node: {
-      id: string;
-      createdAt: string;
-      participants?: string;
-    };
-  };
+  meeting: UserMeetingsQuery["userMeetings"]["edges"][number];
 }
 
 const CompactMeetingCard: React.FC<CompactMeetingCardProps> = ({ meeting }) => {

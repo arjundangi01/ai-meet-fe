@@ -17,6 +17,9 @@ export class UserMeetingApi {
               createdAt
               updatedAt
               participants
+              meeting {
+                name
+              }
             }
           }
           pageInfo {
@@ -45,6 +48,9 @@ export class UserMeetingApi {
           userId
           containerId
           participants
+          meeting {
+            name
+          }
         }
       }
     `);

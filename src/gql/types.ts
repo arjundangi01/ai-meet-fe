@@ -43,8 +43,12 @@ export type JoinMeetingInput = {
 
 export type Meeting = {
   __typename?: 'Meeting';
+  createdAt: Scalars['DateTime']['output'];
+  googleId?: Maybe<Scalars['String']['output']>;
   /** Example field (placeholder) */
-  id: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type Mutation = {
@@ -179,6 +183,7 @@ export type UserMeeting = {
   createdAt: Scalars['DateTime']['output'];
   fileUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
+  meeting?: Maybe<Meeting>;
   meetingId: Scalars['String']['output'];
   participants?: Maybe<Scalars['String']['output']>;
   summary?: Maybe<Scalars['String']['output']>;
