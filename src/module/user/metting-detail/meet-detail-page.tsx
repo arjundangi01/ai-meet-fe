@@ -38,8 +38,8 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
       {/* Video Player */}
       {meeting.fileUrl && (
         <Card>
-          <CardContent className="p-6">
-            <div className="aspect-video bg-black rounded-lg overflow-hidden relative">
+          <CardContent className="p-4">
+            <div className="aspect-[16/9] max-w-4xl mx-auto bg-black rounded-lg overflow-hidden relative">
               <video className="w-full h-full object-cover" controls>
                 <source src={meeting.fileUrl} type="video/mp4" />
                 Your browser does not support the video tag.

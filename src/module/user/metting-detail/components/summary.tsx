@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, Download } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface MeetingSummaryProps {
   summary?: string; // directly pass Gemini's text response
@@ -40,7 +41,7 @@ const MeetingSummary: React.FC<MeetingSummaryProps> = ({
   };
 
   return (
-    <Card className="w-full max-w-3xl mx-auto shadow-lg rounded-2xl">
+    <Card>
       <CardHeader className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <CardTitle>{title || "Meeting Summary"}</CardTitle>
         <div className="flex gap-2">
@@ -53,21 +54,23 @@ const MeetingSummary: React.FC<MeetingSummaryProps> = ({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-6">
-        {toc.length > 0 && (
-          <div className="bg-muted p-3 rounded-md">
-            <p className="font-medium mb-1">Table of Contents</p>
-            <ul className="list-disc list-inside text-sm space-y-1">
-              {toc.map((heading, i) => (
-                <li key={i}>{heading}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+      <CardContent>
+        <ScrollArea className="h-96 w-full">
+          {toc.length > 0 && (
+            <div className="bg-muted p-3 rounded-md">
+              <p className="font-medium mb-1">Table of Contents</p>
+              <ul className="list-disc list-inside text-sm space-y-1">
+                {toc.map((heading, i) => (
+                  <li key={i}>{heading}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-        <div className="prose prose-sm max-w-none">
-          <ReactMarkdown>{summary}</ReactMarkdown>
-        </div>
+          <div className="prose prose-sm max-w-none">
+            <ReactMarkdown>{summary}</ReactMarkdown>
+          </div>
+        </ScrollArea>
       </CardContent>
     </Card>
   );

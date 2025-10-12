@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Copy, Download } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UserMeetingQuery } from "@/gql/graphql";
@@ -18,6 +19,25 @@ const Transcript = ({
     text: string;
   }[];
   console.log("after", transcripts);
+
+  // Get unique speakers for avatar generation
+  const uniqueSpeakers = Array.from(new Set(transcripts.map((t) => t.speaker)));
+
+  // Generate avatar colors for each speaker
+  const getAvatarColor = (speaker: string) => {
+    const colors = [
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-purple-500",
+      "bg-orange-500",
+      "bg-pink-500",
+      "bg-indigo-500",
+      "bg-teal-500",
+      "bg-red-500",
+    ];
+    const index = uniqueSpeakers.indexOf(speaker);
+    return colors[index % colors.length];
+  };
 
   const handleCopy = () => {
     const text = transcripts
@@ -60,12 +80,25 @@ const Transcript = ({
           <div className="space-y-4 pr-4">
             {transcripts?.map((transcript, index) => {
               return (
-                <div key={index}>
-                  <div className="flex flex-col space-x-3">
-                    <span className="capitalize font-semibold text-blue-600 ">
-                      {transcript.speaker}:
-                    </span>
-                    <span className="text-gray-700">{transcript.text}</span>
+                <div key={index} className="flex items-start space-x-3">
+                  <Avatar className="w-8 h-8 flex-shrink-0">
+                    <AvatarFallback
+                      className={`text-white text-sm font-semibold ${getAvatarColor(
+                        transcript.speaker
+                      )}`}
+                    >
+                      {transcript.speaker.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="capitalize font-semibold text-blue-600 text-sm">
+                        {transcript.speaker}
+                      </span>
+                    </div>
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {transcript.text}
+                    </p>
                   </div>
                 </div>
               );
