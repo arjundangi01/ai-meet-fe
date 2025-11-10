@@ -20,7 +20,9 @@ export default function MeetingDetailPage({ params }: MeetingDetailPageProps) {
 
   const meeting = data?.userMeeting;
 
-  const isMeetingInPast = new Date(meeting?.createdAt) < new Date();
+  const isMeetingInPast =
+    new Date(meeting?.createdAt).setHours(0, 0, 0, 0) <
+    new Date().setHours(0, 0, 0, 0);
 
   if (isLoading) {
     return <Spinner />;
