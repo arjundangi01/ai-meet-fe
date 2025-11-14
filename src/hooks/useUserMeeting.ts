@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useUserMeetings = (input: GetUserMeetingsInput) => {
   return useQuery({
-    queryKey: ["user-meeting"],
+    queryKey: ["user-meeting", input],
     queryFn: () => UserMeetingApi.getUserMeetings(input),
   });
 };

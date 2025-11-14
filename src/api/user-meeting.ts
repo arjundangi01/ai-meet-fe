@@ -12,8 +12,6 @@ export class UserMeetingApi {
               id
               fileUrl
               meetingId
-              summary
-              transcript
               createdAt
               updatedAt
               participants
